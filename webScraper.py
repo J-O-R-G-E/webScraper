@@ -25,7 +25,7 @@ class ImageScrapper(object):
         pass
 
     # Replace all the spaces with '%20'
-    def process_url(self, raw_url):
+    def processUrl(self, raw_url):
         if (' ' not in raw_url[-1]):
             processedURL = raw_url.replace(' ','%20')
 
@@ -45,7 +45,7 @@ class ImageScrapper(object):
                             
             return processedURL
 
-    # End of process_url
+    # End of processUrl
 
 
     # Lets get the domain name...
@@ -112,7 +112,7 @@ class ImageScrapper(object):
             try:
                 # Lets clean the url
                 print("\nAttempting: {}".format(imgurl))
-                imgurl = self.process_url(self.imgurl)
+                imgurl = self.processUrl(self.imgurl)
 
 
                 # Now it should work..
@@ -130,7 +130,7 @@ class ImageScrapper(object):
                 try:
                     print("\nSecond try: ")
                     print("RE-Attempting: {}".format(self.imgurl))
-                    self.imgurl = self.process_url(self.imgurl)
+                    self.imgurl = self.processUrl(self.imgurl)
 
                     print("RE-Attempting as: {}".format(imgurl))
                     self.imgData = urllib2.urlopen(self.imgurl).read()
@@ -169,13 +169,14 @@ class ImageScrapper(object):
 
 if __name__ == '__main__':
 
-    #url = 'https://www.reddit.com/r/Pictures/'
-    #url = 'https://imgur.com'
-    #url= 'https://www.google.com'
-    url='https://www.worldatlas.com/webimage/countrys/samerica/fk.htm'
+    RED = "\033[0;31m";
+    RESET = "\033[0m";
     
-    if(len(sys.argv) > 1):
+    if(len(sys.argv) ==  2):
         url = sys.argv[1]
+    else:
+        print("\n{}USAGE: {} path_to_images{}".format(RED, sys.argv[0], RESET))
+        exit(1)
 
     pics = ImageScrapper();
 
